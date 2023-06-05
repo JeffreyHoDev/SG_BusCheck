@@ -81,7 +81,7 @@ export const SearchScreen = () => {
             <QueryView>
                 <CustomizedTextInputContainer>
                     <TextInput
-                        label="Service Number"
+                        label="Service Number (Case sensitive)"
                         value={serviceNumber}
                         onChangeText={text => setServiceNumber(text)}
                     />

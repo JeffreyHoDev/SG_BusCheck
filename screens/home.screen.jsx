@@ -48,21 +48,20 @@ export const HomeScreen = ({ navigation }) => {
 
     useEffect(() => {
         const run = async() => {
-
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
                 return;
             }else {
-                    let location = await Location.getCurrentPositionAsync({});
-                    const lat = location.coords.latitude;
-                    const lng = location.coords.longitude;
-                
-                    let newLocation = {
-                        latitude: lat,  
-                        longitude: lng
-                    }
-                    setCurrentLocation(newLocation)
+                let location = await Location.getCurrentPositionAsync({});
+                const lat = location.coords.latitude;
+                const lng = location.coords.longitude;
+            
+                let newLocation = {
+                    latitude: lat,  
+                    longitude: lng
+                }
+                setCurrentLocation(prev => Object.assign(newLocation, {}))
             }
         }
         run()
@@ -71,7 +70,6 @@ export const HomeScreen = ({ navigation }) => {
     useEffect(() => {
         if(currentLocation){
             if(busStopsList.length !== 0){
-                
                 setIsSettingNearbyBusStops(true)
                 let filteredData = filterDataByDistance(busStopsList, currentLocation)
                 setNearbyBusStops(filteredData)

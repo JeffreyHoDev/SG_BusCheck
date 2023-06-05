@@ -48,8 +48,8 @@ export default function App() {
                       <NavigationContainer>
                         <Tab.Navigator screenOptions={customizeTabScreenOptions}>
                           <Tab.Screen name="Home" component={HomeNavigator} />
-                          <Tab.Screen name="Search" options={{tabBarLabel: 'Service Route'}} component={SearchScreen} />
                           <Tab.Screen name="Favourites" component={FavouritesScreen} />
+                          <Tab.Screen name="Search" options={{tabBarLabel: 'Service Route'}} component={SearchScreen} />
                           <Tab.Screen name="About" component={AboutScreen} />
                         </Tab.Navigator>
                       </NavigationContainer>

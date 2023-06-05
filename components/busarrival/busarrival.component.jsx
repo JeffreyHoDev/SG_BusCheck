@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import { Button, List } from 'react-native-paper';
 import styled from 'styled-components/native'
+import * as Location from 'expo-location';
 
 import { BusArrivalDetailComponent } from './busarrivaldetail.component'
 import { BusStopsContext } from '../../contexts/busstops/busstops.context'
