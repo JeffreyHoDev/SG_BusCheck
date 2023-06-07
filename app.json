@@ -38,7 +38,7 @@
       "package": "com.jeffreyhodev.sgbus_check",
       "config": {
         "googleMaps": {
-          "apiKey": "AIzaSyB_Geytc7OkTgQTkzu7fI40kX81ZFW9vp4"
+          "apiKey": "Secret Key"
         }
       }
     },
