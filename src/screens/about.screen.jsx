@@ -1,5 +1,6 @@
+import React from 'react';
 import { View, ScrollView } from 'react-native'
-import { Text, Button } from 'react-native-paper';
+import { Text } from 'react-native-paper';
 import { Linking } from 'react-native'
 import styled from 'styled-components/native';
 

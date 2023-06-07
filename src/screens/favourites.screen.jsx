@@ -1,5 +1,5 @@
-import { List, IconButton, Colors  } from 'react-native-paper';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
+import { List, IconButton } from 'react-native-paper';
 import { ScrollView, View } from 'react-native'
 import { FavouritesContext } from '../contexts/favourites/favourites.context';
 import { BusArrivalContext } from '../contexts/busarrival/busarrival.context';

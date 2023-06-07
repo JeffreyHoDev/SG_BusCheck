@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import { Button, List } from 'react-native-paper';
 import styled from 'styled-components/native'
@@ -20,16 +20,6 @@ const Container = styled.View`
 const StyledScrollView = styled(ScrollView)`
     width: 100%;
     height: 100%;
-`
-
-const ActionView = styled(View)`
-    height: 15%;
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between
-    padding: 0;
-    margin: 0;
 `
 
 const RefreshContainer = styled(View)`
@@ -76,15 +66,11 @@ export const BusArrivalListComponent = ({ navigation }) => {
 
     return (
         <Container>
-            <ActionView>
-                <RefreshContainer>
-                    <Button disabled={isLoading} onPress={refreshHandler} icon="refresh">Refresh</Button>
-                    {isLoading ? <ActivityIndicator /> : null}
-                </RefreshContainer>
-            </ActionView>
-            <StyledScrollView
-                bounces={false}
-            >
+            <RefreshContainer>
+                <Button disabled={isLoading} onPress={refreshHandler} icon="refresh">Refresh</Button>
+                {isLoading ? <ActivityIndicator /> : null}
+            </RefreshContainer>
+            <StyledScrollView>
                 <List.Section title="Nearby Bus Stops (Within 500m)">
                     {
                         nearbyBusStops.map((busstop, index) => {

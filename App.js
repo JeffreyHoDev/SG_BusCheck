@@ -1,21 +1,23 @@
+import 'react-native-gesture-handler'
+import React from 'react';
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { ThemeProvider } from 'styled-components/native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from "@expo/vector-icons"
 
-import { SafeAreaAppView } from './components/safearea/safeareaview.component';
-import { HomeNavigator } from './navigators/home.navigator';
-import { FavouritesScreen } from './screens/favourites.screen';
-import { SearchScreen } from './screens/search.screen'
-import { AboutScreen } from './screens/about.screen';
-import { theme } from './theme';
+import { SafeAreaAppView } from './src/components/safearea/safeareaview.component';
+import { HomeNavigator } from './src/navigators/home.navigator';
+import { FavouritesScreen } from './src/screens/favourites.screen';
+import { SearchScreen } from './src/screens/search.screen'
+import { AboutScreen } from './src/screens/about.screen';
+import { theme } from './src/theme';
 
-import { BusStopsContextProvider } from './contexts/busstops/busstops.context'
-import { BusArrivalContextProvider } from './contexts/busarrival/busarrival.context'
-import { LocationContextProvider } from './contexts/location/location.context'
-import { FavouritesContextProvider } from './contexts/favourites/favourites.context';
-import { RoutesContextProvider } from './contexts/routes/routes.context'
+import { BusStopsContextProvider } from './src/contexts/busstops/busstops.context'
+import { BusArrivalContextProvider } from './src/contexts/busarrival/busarrival.context'
+import { LocationContextProvider } from './src/contexts/location/location.context'
+import { FavouritesContextProvider } from './src/contexts/favourites/favourites.context';
+import { RoutesContextProvider } from './src/contexts/routes/routes.context'
 
 const iconDict = {
   "Home": "bus-outline",
@@ -28,9 +30,11 @@ const customizeTabScreenOptions = (props) => {
   const { name } = props.route
   return {
     tabBarIcon: ({ color }) => <Ionicons name={iconDict[name]} size={24} color={color} />,
-    tabBarActiveTintColor: 'tomato',
-    tabBarInactiveTintColor: 'gray',
-    headerShown: false
+    tabBarActiveTintColor: theme.colors.focus,
+    tabBarInactiveTintColor: theme.colors.idle,
+    headerShown: false,
+    tabBarStyle: {backgroundColor: theme.colors.main, marginTop: 2, paddingTop: 5, paddingBottom: 5},
+    tabBarHideOnKeyboard: true
   }
 }
 

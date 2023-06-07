@@ -1,5 +1,5 @@
 // import { Dimensions } from 'react-native';
-
+import React from 'react'
 import { createStackNavigator, TransitionPresets } from "@react-navigation/stack"
 
 import { BusArrivalScreen } from '../screens/busarrival.screen'

@@ -1,28 +1,22 @@
-import { Image, View, Text } from 'react-native'
-import MapView, { Marker } from 'react-native-maps';
+import React, { useEffect, useState } from 'react';
+import { View } from 'react-native'
+import MapView, { Marker, PROVIDER_GOOGLE } from 'react-native-maps';
 import styled from 'styled-components/native';
 import { ActivityIndicator } from 'react-native-paper';
 // import { Dimensions } from 'react-native';
-import { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import * as Location from 'expo-location';
+
 import { BusArrivalListComponent } from '../components/busarrival/busarrival.component'
 import { BusStopsContext } from '../contexts/busstops/busstops.context'
 import { LocationContext } from '../contexts/location/location.context';
 import { filterDataByDistance } from '../contexts/busstops/busstops.util'
-
+import { Subtitle } from '../components/generic/Typography/typography.component'
 
 const CustomizedMapView = styled(MapView)`
     height: 100%;
     width: 100%;
 `
-
-const MarkerText = styled(Text)`
-    background-color: white;
-    text-align: center;
-    padding: 5px 10px
-`
-
 
 const LoadingView = styled(View)`
     display: flex;
@@ -69,8 +63,8 @@ export const HomeScreen = ({ navigation }) => {
 
     useEffect(() => {
         if(currentLocation){
+            setIsSettingNearbyBusStops(true)
             if(busStopsList.length !== 0){
-                setIsSettingNearbyBusStops(true)
                 let filteredData = filterDataByDistance(busStopsList, currentLocation)
                 setNearbyBusStops(filteredData)
                 setRegionConfigurations({
@@ -79,20 +73,22 @@ export const HomeScreen = ({ navigation }) => {
                     latitudeDelta: 0.0015,
                     longitudeDelta: 0.005
                 })
-                setIsSettingNearbyBusStops(false)
             }
+            setIsSettingNearbyBusStops(false)
         }
-    }, [currentLocation, busStopsList])
+    }, [currentLocation, busStopsList.length])
 
     return (
         <View>
             {
-                isLoadingAllBusStops ? <LoadingView><ActivityIndicator /><Text>Getting Bus Stops and Locating</Text><Text>Make sure Internet Access is enabled!</Text></LoadingView> : 
+                isLoadingAllBusStops ? <LoadingView><ActivityIndicator /><Subtitle>Getting Bus Stops and Locating</Subtitle><Subtitle>Make sure Internet Access is enabled!</Subtitle></LoadingView> : 
                 (
                     <View>
                         {
                             <CustomizedMapView
                                 region={regionConfigurations}
+                                provider={PROVIDER_GOOGLE}
+                                showsUserLocation={true}
                                 // onRegionChange={onRegionChange}
                             >
                                 {
@@ -107,14 +103,6 @@ export const HomeScreen = ({ navigation }) => {
                                         )
                                     })
                                 }
-                                {currentLocation ? (
-                                    <Marker
-                                        coordinate={{latitude: currentLocation.latitude, longitude: currentLocation.longitude}}
-                                    >
-                                        <MarkerText>You are here!</MarkerText>
-                                        <Image source={require("../assets/man-marker.png")} style={{width: 20, height: 20}}/>
-                                    </Marker>
-                                ) : null}
                             </CustomizedMapView>
                         }
                         {isSettingNearbyBusStops ? <LoadingView><ActivityIndicator /></LoadingView> : <BusArrivalListComponent navigation={navigation}/>}
