@@ -137,7 +137,7 @@ export const BusArrivalScreen = () => {
                                         <IconBadge color="green" size={30} name="numeric-1-circle" />
                                         <CardDetailContainer>
                                             <Icon size={30} name="bus-clock"/>
-                                            <SubInfo style={{ color: getDuration(busData["NextBus"]["EstimatedArrival"]) < 5 && "green"}}>Estimated Arrival: {getDuration(busData["NextBus"]["EstimatedArrival"]) > 0 ? `${getDuration(busData["NextBus"]["EstimatedArrival"])} minutes` : 'Arrive'}</SubInfo>
+                                            <SubInfo style={{ color: getDuration(busData["NextBus"]["EstimatedArrival"]) < 5 ? "green": "black"}}>Estimated Arrival: {getDuration(busData["NextBus"]["EstimatedArrival"]) > 0 ? `${getDuration(busData["NextBus"]["EstimatedArrival"])} minutes` : 'Arrive'}</SubInfo>
                                         </CardDetailContainer>
                                         <CardDetailContainer>
                                             <Icon size={30} name={busData["NextBus"]["Type"] === 'SD' ? "bus-school" : "bus-double-decker"}/>
@@ -145,7 +145,7 @@ export const BusArrivalScreen = () => {
                                         </CardDetailContainer>
                                         <CardDetailContainer>
                                             <Icon size={30} name="account-group"/>
-                                            <SubInfo style={{ color: (busData["NextBus"]["Load"] === "SEA" ||busData["NextBus"]["Load"] === "SDA") && "green"}}>Capacity: {seatGenerator(busData["NextBus"]["Load"])}</SubInfo>
+                                            <SubInfo style={{ color: (busData["NextBus"]["Load"] === "SEA" ||busData["NextBus"]["Load"] === "SDA") ? "green" : "black"}}>Capacity: {seatGenerator(busData["NextBus"]["Load"])}</SubInfo>
                                         </CardDetailContainer>
                                     </CardContainer>
                                 ) : null
@@ -156,7 +156,7 @@ export const BusArrivalScreen = () => {
                                         <IconBadge color="green" size={30} name="numeric-2-circle" />
                                         <CardDetailContainer>
                                             <Icon size={30} name="bus-clock"/>
-                                            <SubInfo style={{ color: getDuration(busData["NextBus2"]["EstimatedArrival"]) < 5 && "green"}}>Estimated Arrival: {getDuration(busData["NextBus2"]["EstimatedArrival"]) > 0 ? `${getDuration(busData["NextBus2"]["EstimatedArrival"])} minutes` : 'Arrive'}</SubInfo>
+                                            <SubInfo style={{ color: getDuration(busData["NextBus2"]["EstimatedArrival"]) < 5 ? "green": "black"}}>Estimated Arrival: {getDuration(busData["NextBus2"]["EstimatedArrival"]) > 0 ? `${getDuration(busData["NextBus2"]["EstimatedArrival"])} minutes` : 'Arrive'}</SubInfo>
                                         </CardDetailContainer>
                                         <CardDetailContainer>
                                             <Icon size={30} name={busData["NextBus2"]["Type"] === 'SD' ? "bus-school" : "bus-double-decker"}/>
@@ -164,7 +164,7 @@ export const BusArrivalScreen = () => {
                                         </CardDetailContainer>
                                         <CardDetailContainer>
                                             <Icon size={30} name="account-group"/>
-                                            <SubInfo style={{ color: (busData["NextBus2"]["Load"] === "SEA" ||busData["NextBus2"]["Load"] === "SDA") && "green"}}>Capacity: {seatGenerator(busData["NextBus"]["Load"])}</SubInfo>
+                                            <SubInfo style={{ color: (busData["NextBus2"]["Load"] === "SEA" ||busData["NextBus2"]["Load"] === "SDA") ? "green" : "black"}}>Capacity: {seatGenerator(busData["NextBus"]["Load"])}</SubInfo>
                                         </CardDetailContainer>
                                     </CardContainer>
                                 ) : null
@@ -175,7 +175,7 @@ export const BusArrivalScreen = () => {
                                         <IconBadge color="green" size={30} name="numeric-3-circle" />
                                         <CardDetailContainer>
                                             <Icon size={30} name="bus-clock"/>
-                                            <SubInfo style={{ color: getDuration(busData["NextBus3"]["EstimatedArrival"]) < 5 && "green"}}>Estimated Arrival: {getDuration(busData["NextBus3"]["EstimatedArrival"]) > 0 ? `${getDuration(busData["NextBus3"]["EstimatedArrival"])} minutes` : 'Arrive'}</SubInfo>
+                                            <SubInfo style={{ color: getDuration(busData["NextBus3"]["EstimatedArrival"]) < 5 ? "green": "black"}}>Estimated Arrival: {getDuration(busData["NextBus3"]["EstimatedArrival"]) > 0 ? `${getDuration(busData["NextBus3"]["EstimatedArrival"])} minutes` : 'Arrive'}</SubInfo>
                                         </CardDetailContainer>
                                         <CardDetailContainer>
                                             <Icon size={30} name={busData["NextBus3"]["Type"] === 'SD' ? "bus-school" : "bus-double-decker"}/>
@@ -183,7 +183,7 @@ export const BusArrivalScreen = () => {
                                         </CardDetailContainer>
                                         <CardDetailContainer>
                                             <Icon size={30} name="account-group"/>
-                                            <SubInfo style={{ color: (busData["NextBus3"]["Load"] === "SEA" ||busData["NextBus3"]["Load"] === "SDA") && "green"}}>Capacity: {seatGenerator(busData["NextBus"]["Load"])}</SubInfo>
+                                            <SubInfo style={{ color: (busData["NextBus3"]["Load"] === "SEA" ||busData["NextBus3"]["Load"] === "SDA") ? "green" : "black"}}>Capacity: {seatGenerator(busData["NextBus"]["Load"])}</SubInfo>
                                         </CardDetailContainer>
                                     </CardContainer>
                                 ) : null

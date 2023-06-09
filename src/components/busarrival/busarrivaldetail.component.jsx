@@ -85,7 +85,7 @@ export const BusArrivalDetailComponent = ({ busstop, navigation }) => {
             title={`${busstop.Description} - ${busstop.RoadName}(${busstop.BusStopCode})`}
             left={props => {
                 // To overwrite props.color, so color attr need put after props
-                return <List.Icon {...props} color="rgba(255,255,255,1)" icon="bus-stop" />
+                return <List.Icon {...props} color="rgba(0,0,0,1)" icon="bus-stop" />
             }}
             expanded={expanded}
             onPress={handlePress}
@@ -117,7 +117,7 @@ export const BusArrivalDetailComponent = ({ busstop, navigation }) => {
                                     <Caption>{`${duration2 > 0 ? `${duration2} min`: 'Arrive'}`}</Caption>
                                 </ItemInfoContainer>
                                 <ItemInfoContainer>
-                                    <Avatar.Icon color="white" style={{backgroundColor: 'grey'}} size={24} icon="bus" />
+                                    <Avatar.Icon color="white" style={{backgroundColor: `${duration3 < 5 ? "green": "grey"}`}} size={24} icon="bus" />
                                     <Caption>{`${duration3 > 0 ? `${duration3} min`: 'Arrive'}`}</Caption>
                                 </ItemInfoContainer>
                             </CustomizedListItemView>

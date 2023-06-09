@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react';
-import { ScrollView, View, ActivityIndicator } from 'react-native';
+import React, { useContext } from 'react';
+import { ScrollView, View } from 'react-native';
 import { Button, List } from 'react-native-paper';
 import styled from 'styled-components/native'
 import * as Location from 'expo-location';
@@ -7,15 +7,6 @@ import * as Location from 'expo-location';
 import { BusArrivalDetailComponent } from './busarrivaldetail.component'
 import { BusStopsContext } from '../../contexts/busstops/busstops.context'
 import { LocationContext } from '../../contexts/location/location.context';
-
-const Container = styled.View`
-    position: absolute;
-    height: 45%;
-    width: 100%;
-    bottom: 0;
-    z-index: 10;
-    background-color: white;
-`
 
 const StyledScrollView = styled(ScrollView)`
     width: 100%;
@@ -29,10 +20,10 @@ const RefreshContainer = styled(View)`
 
 export const BusArrivalListComponent = ({ navigation }) => {
 
-    const { nearbyBusStops, setNearbyBusStops } = useContext(BusStopsContext)
+    const { nearbyBusStops } = useContext(BusStopsContext)
     const { setCurrentLocation } = useContext(LocationContext)
 
-    const [isLoading, setIsLoading] = useState(false)
+    // const [isLoading, setIsLoading] = useState(false)
 
 
     const refreshHandler = () => {
@@ -43,32 +34,31 @@ export const BusArrivalListComponent = ({ navigation }) => {
                 setErrorMsg('Permission to access location was denied');
                 return;
             }else {
-                    let location = await Location.getCurrentPositionAsync({});
-                    const lat = location.coords.latitude;
-                    const lng = location.coords.longitude;
-                
-                    let newLocation = {
-                        latitude: lat,  
-                        longitude: lng
-                    }
-                    setCurrentLocation(newLocation)
+
+                let location = await Location.getCurrentPositionAsync();
+                const lat = location.coords.latitude;
+                const lng = location.coords.longitude;
+            
+                let newLocation = {
+                    latitude: lat,  
+                    longitude: lng
+                }
+                setCurrentLocation(newLocation);
+
             }
+
         }
 
         const run = async() => {
-            setIsLoading(true)
-            setNearbyBusStops([])
-            await getLocation()
-            setIsLoading(false)
+            getLocation()
         }
         run()
     }
 
     return (
-        <Container>
+        <>
             <RefreshContainer>
-                <Button disabled={isLoading} onPress={refreshHandler} icon="refresh">Refresh</Button>
-                {isLoading ? <ActivityIndicator /> : null}
+                <Button onPress={refreshHandler} icon="refresh">Refresh</Button>
             </RefreshContainer>
             <StyledScrollView>
                 <List.Section title="Nearby Bus Stops (Within 500m)">
@@ -81,6 +71,6 @@ export const BusArrivalListComponent = ({ navigation }) => {
                     }
                 </List.Section>
             </StyledScrollView>
-        </Container>
+        </>
     )
 }

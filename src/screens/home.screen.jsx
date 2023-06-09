@@ -10,7 +10,6 @@ import * as Location from 'expo-location';
 import { BusArrivalListComponent } from '../components/busarrival/busarrival.component'
 import { BusStopsContext } from '../contexts/busstops/busstops.context'
 import { LocationContext } from '../contexts/location/location.context';
-import { filterDataByDistance } from '../contexts/busstops/busstops.util'
 import { Subtitle } from '../components/generic/Typography/typography.component'
 
 const CustomizedMapView = styled(MapView)`
@@ -27,88 +26,90 @@ const LoadingView = styled(View)`
     z-index: 999;
 `
 
+const Container = styled.View`
+    position: absolute;
+    height: 45%;
+    width: 100%;
+    bottom: 0;
+    z-index: 10;
+    background-color: white;
+`
+
+
 export const HomeScreen = ({ navigation }) => {
-    const [ regionConfigurations, setRegionConfigurations ] = useState({
+    const [regionConfigurations, setRegionConfigurations] = useState({
         latitude: 1.290270,
         longitude: 103.851959,
         latitudeDelta: 0.1,
         longitudeDelta: 0.02
     })
-    const { setNearbyBusStops, nearbyBusStops, busStopsList, isLoadingAllBusStops } = useContext(BusStopsContext)
+    const { nearbyBusStops, isLoadingAllBusStops } = useContext(BusStopsContext)
     const { currentLocation, setCurrentLocation } = useContext(LocationContext)
-    const [ errorMsg, setErrorMsg ] = useState(null);
-    const [ isSettingNearbyBusStops, setIsSettingNearbyBusStops] = useState(false)
+    const [errorMsg, setErrorMsg] = useState(null);
+
 
 
     useEffect(() => {
-        const run = async() => {
+        const run = async () => {
             let { status } = await Location.requestForegroundPermissionsAsync();
             if (status !== 'granted') {
                 setErrorMsg('Permission to access location was denied');
                 return;
-            }else {
-                let location = await Location.getCurrentPositionAsync({});
+            } else {
+                let location = await Location.getCurrentPositionAsync();
                 const lat = location.coords.latitude;
                 const lng = location.coords.longitude;
-            
+
                 let newLocation = {
-                    latitude: lat,  
+                    latitude: lat,
                     longitude: lng
                 }
-                setCurrentLocation(prev => Object.assign(newLocation, {}))
+                await setCurrentLocation(() => Object.assign(newLocation, {}))
+
             }
         }
         run()
     }, [])
 
     useEffect(() => {
-        if(currentLocation){
-            setIsSettingNearbyBusStops(true)
-            if(busStopsList.length !== 0){
-                let filteredData = filterDataByDistance(busStopsList, currentLocation)
-                setNearbyBusStops(filteredData)
-                setRegionConfigurations({
-                    latitude: currentLocation.latitude,
-                    longitude: currentLocation.longitude,
-                    latitudeDelta: 0.0015,
-                    longitudeDelta: 0.005
-                })
-            }
-            setIsSettingNearbyBusStops(false)
+        if (currentLocation) {
+            setRegionConfigurations({
+                latitude: currentLocation.latitude,
+                longitude: currentLocation.longitude,
+                latitudeDelta: 0.0015,
+                longitudeDelta: 0.005
+            })
         }
-    }, [currentLocation, busStopsList.length])
+    }, [currentLocation])
+
+
 
     return (
         <View>
-            {
-                isLoadingAllBusStops ? <LoadingView><ActivityIndicator /><Subtitle>Getting Bus Stops and Locating</Subtitle><Subtitle>Make sure Internet Access is enabled!</Subtitle></LoadingView> : 
-                (
-                    <View>
-                        {
-                            <CustomizedMapView
-                                region={regionConfigurations}
-                                provider={PROVIDER_GOOGLE}
-                                showsUserLocation={true}
-                                // onRegionChange={onRegionChange}
-                            >
-                                {
-                                    nearbyBusStops.map((busstop, index) => {
-                                        return( 
-                                            <Marker 
-                                                key={`busstop-i${index}-${busstop.BusStopCode}`}
-                                                coordinate={{latitude: busstop.Latitude, longitude: busstop.Longitude}}
-                                                title={`${busstop.BusStopCode}`}
-                                                description={`${busstop.Description}`}
-                                            />
-                                        )
-                                    })
-                                }
-                            </CustomizedMapView>
-                        }
-                        {isSettingNearbyBusStops ? <LoadingView><ActivityIndicator /></LoadingView> : <BusArrivalListComponent navigation={navigation}/>}
-                    </View>
-                )
-            }
+            <View>
+                <CustomizedMapView
+                    region={regionConfigurations}
+                    provider={PROVIDER_GOOGLE}
+                    showsUserLocation={true}
+                // onRegionChange={onRegionChange}
+                >
+                    {
+                        nearbyBusStops.map((busstop, index) => {
+                            return (
+                                <Marker
+                                    key={`busstop-i${index}-${busstop.BusStopCode}`}
+                                    coordinate={{ latitude: busstop.Latitude, longitude: busstop.Longitude }}
+                                    title={`${busstop.BusStopCode}`}
+                                    description={`${busstop.Description}`}
+                                />
+                            )
+                        })
+                    }
+                </CustomizedMapView>
+                <Container>
+                    {isLoadingAllBusStops ? <LoadingView><ActivityIndicator /><Subtitle>Getting Bus Stops and Locating</Subtitle><Subtitle>Make sure Internet Access is enabled!</Subtitle></LoadingView> : <BusArrivalListComponent navigation={navigation} />}
+                </Container>
+            </View>
         </View>
     )
 }
