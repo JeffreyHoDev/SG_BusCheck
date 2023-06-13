@@ -48,7 +48,6 @@ export const BusArrivalDetailComponent = ({ busstop, navigation }) => {
     
                 let data = await response.json()
                 let { Services } = data
-
                 setServiceList(Services)
             }catch(err){
                 console.log(err)
@@ -58,6 +57,7 @@ export const BusArrivalDetailComponent = ({ busstop, navigation }) => {
     },[])
 
     const getService = async(busStopCode, busServiceNum) => {
+        // This part is used for busarrival.screen
         const getBusArrival = async () => {
             let response = await fetch(`http://datamall2.mytransport.sg/ltaodataservice/BusArrivalv2?BusStopCode=${busStopCode}&ServiceNo=${busServiceNum}`, {
                 headers: {

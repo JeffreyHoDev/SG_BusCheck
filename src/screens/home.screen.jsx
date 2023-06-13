@@ -107,7 +107,7 @@ export const HomeScreen = ({ navigation }) => {
                     }
                 </CustomizedMapView>
                 <Container>
-                    {isLoadingAllBusStops ? <LoadingView><ActivityIndicator /><Subtitle>Getting Bus Stops and Locating</Subtitle><Subtitle>Make sure Internet Access is enabled!</Subtitle></LoadingView> : <BusArrivalListComponent navigation={navigation} />}
+                    {isLoadingAllBusStops ? <LoadingView><ActivityIndicator /><Subtitle>Getting Nearby Bus Stops with Your Location</Subtitle><Subtitle>Make sure Internet Access is enabled!</Subtitle></LoadingView> : <BusArrivalListComponent navigation={navigation} />}
                 </Container>
             </View>
         </View>

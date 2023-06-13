@@ -2,9 +2,9 @@
   "expo": {
     "name": "sgbus_check",
     "slug": "sgbus_check",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon2.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -27,7 +27,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon2.png",
         "backgroundColor": "#ffffff"
       },
       "permissions": [
@@ -38,12 +38,12 @@
       "package": "com.jeffreyhodev.sgbus_check",
       "config": {
         "googleMaps": {
-          "apiKey": "SECRETS"
+          "apiKey": "SECRET"
         }
       }
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/icon.png"
     },
     "extra": {
       "eas": {

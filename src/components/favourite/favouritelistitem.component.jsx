@@ -31,6 +31,8 @@ const FavouriteListContainer = styled(View)`
     display: flex;
     justify-content: flex-start;
     margin-bottom: ${props => props.theme.space.medium};
+    margin-left: ${props => props.theme.space.small};
+    margin-right: ${props => props.theme.space.small};
 `
 
 const InfoView = styled(View)`
@@ -114,11 +116,13 @@ export const FavouriteListItem = ({ favourite, navigation }) => {
                         icon="close-thick"
                         size={24}
                         onPress={() => removeHandler(favourite)}
+                        animated={true}
                     />
                     <IconButton
                         icon="refresh"
                         size={24}
                         onPress={refreshHandler}
+                        animated={true}
                     />
                 </InfoView>
                 <CustomizedListItemView>

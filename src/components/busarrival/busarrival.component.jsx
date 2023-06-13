@@ -61,7 +61,7 @@ export const BusArrivalListComponent = ({ navigation }) => {
                 <Button onPress={refreshHandler} icon="refresh">Refresh</Button>
             </RefreshContainer>
             <StyledScrollView>
-                <List.Section title="Nearby Bus Stops (Within 500m)">
+                <List.Section title="Nearby Bus Stops">
                     {
                         nearbyBusStops.map((busstop, index) => {
                             return (
